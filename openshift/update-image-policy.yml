@@ -1,0 +1,34 @@
+---
+- name: Configure Image Policy in OpenShift
+  hosts: masters
+  become: true
+  vars:
+    disableScheduledImport: false
+    maxImagesBulkImportedPerRepository: 5
+    maxScheduledImageImportsPerMinute: 60
+    scheduledImageImportMinimumIntervalSeconds: 900
+
+  tasks:
+    - name: Backup master-config.yml
+      command: cp /etc/origin/master/master-config.yaml /etc/origin/master-config-{{ansible_date_time.iso8601}}
+    - name: Update Image Policy Config
+      lineinfile:
+        path: /etc/origin/master/master-config.yaml
+        insertbefore: '^imageConfig\:'
+        line: '{{ item }}'
+      with_items:
+         - 'imagePolicyConfig:'
+         - '  disableScheduledImport: {{ disableScheduledImport }}'
+         - '  maxImagesBulkImportedPerRepository: {{ maxImagesBulkImportedPerRepository }}'
+         - '  maxScheduledImageImportsPerMinute: {{  maxScheduledImageImportsPerMinute }}'
+         - '  scheduledImageImportMinimumIntervalSeconds: {{ scheduledImageImportMinimumIntervalSeconds }}'
+      notify:
+        - 'Restart multi-master services'
+
+  handlers:
+    - name: Restart multi-master services
+      service:
+        name: "{{ item }}"
+        state: restarted
+      with_items:
+        - atomic-openshift-master-controllers
