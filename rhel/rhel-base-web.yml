@@ -6,7 +6,7 @@
 
   tasks:
   - import_role:
-      subscription-manager
+      subscription-manager-register
 
 - name: Configure HTTP Web Server
   hosts: all

@@ -1,0 +1,17 @@
+- name: check if host already registered
+  command: subscription-manager list --available --match-installed --matches=*"Red Hat Enterprise Linux Server"* --pool-only
+  register: subs_result
+  failed_when: true
+  changed_when: "'This system is registered' in subs_result.stderr"
+
+- name: Unregister host
+  command: subscription-manager unregister --username={{ rhn_username }}
+  retries: 5
+  delay: 5
+  when: subs_result.changed
+
+- name: Clean repos on host
+  command: subscription-manager clean
+  retries: 5
+  delay: 5
+  when: subs_result.changed
