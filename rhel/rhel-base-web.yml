@@ -1,0 +1,18 @@
+---
+- name: Configure Subscription Manager
+  hosts: all
+  gather_facts: yes
+  become: yes
+
+  tasks:
+  - import_role:
+      subscription-manager
+
+- name: Configure HTTP Web Server
+  hosts: all
+  gather_facts: yes
+  become: yes
+
+  tasks:
+  - import_role:
+      httpd
