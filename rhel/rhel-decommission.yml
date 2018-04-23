@@ -6,4 +6,4 @@
 
   tasks:
   - import_role:
-      subscription-manager-unregister
+      name: subscription-manager-unregister

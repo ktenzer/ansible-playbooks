@@ -6,7 +6,7 @@
 
   tasks:
   - import_role:
-      subscription-manager-register
+      name: subscription-manager-register
 
 - name: Configure HTTP Web Server
   hosts: all
@@ -15,4 +15,4 @@
 
   tasks:
   - import_role:
-      httpd
+      name: httpd
