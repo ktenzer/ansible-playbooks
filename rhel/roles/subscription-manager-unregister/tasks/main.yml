@@ -2,10 +2,8 @@
   command: subscription-manager unregister --username={{ rhn_username }}
   retries: 5
   delay: 5
-  when: subs_result.changed
 
 - name: Clean repos on host
   command: subscription-manager clean
   retries: 5
   delay: 5
-  when: subs_result.changed
