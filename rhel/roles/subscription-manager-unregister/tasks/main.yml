@@ -1,5 +1,5 @@
 - name: Unregister host
-  command: subscription-manager unregister --username={{ rhn_username }}
+  command: subscription-manager unregister
   retries: 5
   delay: 5
 
