@@ -10,7 +10,12 @@
 - name: Install the firewalld
   yum: 
     name=firewalld
-    state=started
+    state=installed
+
+- name: Enable firewalld service
+  systemd:
+    name: firewalld
+    enabled: yes
 
 - name: Open port 80
   firewalld: 
