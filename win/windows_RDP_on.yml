@@ -1,0 +1,34 @@
+---
+- name: Enable RDP Service
+  hosts: all
+  gather_facts: yes
+
+  tasks:
+  - name: ping host
+    win_ping:
+
+  - name: Set terminal service startup mode to auto and ensure it is started
+    win_service:
+      name: termservice
+      start_mode: auto
+      force_dependent_services: yes
+      username: LocalSystem
+      state: started
+
+  - name: Install Remote Desktop Server
+    win_feature:
+      name: Remote-Desktop-Services
+      state: present
+      
+  - name: Firewall Remote Desktop - Any
+    win_firewall_rule:
+      name: Remote Desktop 
+      action: allow
+      description: Allow Remote Desktop From Any
+      direction: in
+      enable: true
+      localport: 3389
+      protocol: TCP
+      remoteip: any
+      state: present
+

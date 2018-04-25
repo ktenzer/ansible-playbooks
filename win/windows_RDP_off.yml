@@ -1,0 +1,26 @@
+---
+- name: Disable RDP Service
+  hosts: all
+  gather_facts: yes
+
+  tasks:
+  - name: ping host
+    win_ping:
+
+  - name: Unnstall Remote Desktop Server
+    win_feature:
+      name: Remote-Desktop-Services
+      state: absent 
+      
+  - name: Firewall Remote Desktop - deny 
+    win_firewall_rule:
+      name: Remote Desktop 
+      action: allow
+      description: Allow Remote Desktop From Any
+      direction: in
+      enable: true
+      localport: 3389
+      protocol: TCP
+      remoteip: any
+      state: absent
+
