@@ -12,7 +12,6 @@
       name: termservice
       start_mode: auto
       force_dependent_services: yes
-      username: LocalSystem
       state: started
 
   - name: Install Remote Desktop Server
