@@ -4,6 +4,10 @@
   gather_facts: yes
 
   tasks:
+  - name: Display all variables/facts
+    debug:
+      var: hostvars[inventory_hostname]
+
   - name: ping host
     win_ping:
 
