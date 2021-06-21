@@ -1,0 +1,8 @@
+- name: Make sure insights-client is installed
+  yum:
+    name: insights-client
+    state: latest
+
+- name: Register insights
+  shell:
+    cmd: insights-client --register
