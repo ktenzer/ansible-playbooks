@@ -1,0 +1,19 @@
+---
+# tasks file for manage-secret
+- name: Read secret file
+  include_vars: "defaults/secret.yml"
+
+- name: Fetch list of ansible tower jobs
+  uri:
+    url: https://{{ tower_fqdn }}/api/v2/jobs/
+    user: "{{ secret.user }}"
+    password: "{{ secret.password }}"
+    method: GET
+    force_basic_auth: yes
+    status_code: 200
+    validate_certs: no
+  register: jobs
+
+- name: Print jobs
+  debug:
+    msg: "{{ jobs.json }}"
