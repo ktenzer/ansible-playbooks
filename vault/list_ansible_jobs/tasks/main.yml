@@ -13,6 +13,7 @@
     status_code: 200
     validate_certs: no
   register: jobs
+  no_log: true
 
 - name: Print jobs
   debug:
