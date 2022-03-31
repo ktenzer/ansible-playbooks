@@ -1,0 +1,12 @@
+---
+# tasks file for manage-secret
+- name: Read secret file
+  include_vars: "defaults/secret.yml"
+
+- name: display user
+  debug:
+    msg: "{{ secret.user }}"
+
+- name: display password
+  debug:
+    msg: "{{ secret.password }}"
