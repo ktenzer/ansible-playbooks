@@ -1,5 +1,5 @@
 ---
-- name: Use a secret
+- name: List tower jobs through API using vault password
   hosts: localhost
   gather_facts: no
   become: no
